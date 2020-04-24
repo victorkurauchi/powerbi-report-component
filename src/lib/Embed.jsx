@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { validateConfig } from './config';
+import { validateConfig } from './common/config';
 
 // powerbi object is global
 class Embed extends PureComponent {

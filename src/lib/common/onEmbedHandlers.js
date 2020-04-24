@@ -1,4 +1,4 @@
-import { validateAndInvokeCallback } from './utils';
+import { validateAndInvokeCallback } from '../utils';
 
 const reportHandler = (report, reportMode, props) => {
   const isCreateMode = reportMode === 'create';
@@ -46,10 +46,14 @@ const reportHandler = (report, reportMode, props) => {
   }
 };
 
-const dashboardHandler = (report, reportRef, props) => {
-  if (props.onLoad) props.onLoad(report, powerbi.get(reportRef));
+const dashboardHandler = (dashboard, dashboardRef, props) => {
+  if (props.onLoad) props.onLoad(dashboard, powerbi.get(dashboardRef));
 
-  report.on('tileClicked', (event) =>
+  dashboard.on('error', (event) =>
+  validateAndInvokeCallback(props.onError, event.detail)
+);
+
+dashboard.on('tileClicked', (event) =>
     validateAndInvokeCallback(props.onTileClicked, event.detail)
   );
 };
